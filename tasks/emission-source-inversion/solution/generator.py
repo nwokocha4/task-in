@@ -74,8 +74,8 @@ def make_case(rng, seed):
 
     # forward model import
     import sys
-    sys.path.insert(0, os.path.join(os.path.dirname(__file__), "..", "environment", "data"))
-    from dispersion_solver.plume import concentration_field
+    sys.path.insert(0, os.path.join(os.path.dirname(__file__)))
+    from _model import concentration_field
 
     # compute predicted monitor concentrations per snapshot
     pred_flat = np.zeros(N)
