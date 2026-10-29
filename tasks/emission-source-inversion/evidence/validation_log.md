@@ -7,8 +7,8 @@ Example and hidden cases: examples/case_1..3 with expected.json (theta, predicte
 Verifier (tests/test_outputs.py):
 - Checks artifact presence and schema.
 - Checks theta within prior support (mean ± 3σ in log space) AND accuracy vs hidden_expected (atol=0.5, rtol=0.1).
-- Checks predicted_concentrations on mask |pred|>1e-12 (atol=1e-6, rtol=0.1) vs hidden_expected, after independent re-solution from submitted theta is not needed because hidden_expected itself is model output; the test recomputes weighted misfit independently via supplied noise_factor L.
-- Checks independent re-solution of max_residual: verifier recomputes predicted concentrations from submitted theta and requires max_residual to match |pred_submitted - pred_resolved| ≤ 1e-3 (and weighted_calibration_misfit to match recomputed whitened residual within 1e-6).
+- Checks predicted_concentrations on mask |pred|>1e-12 (atol=1e-6, rtol=0.1) vs hidden_expected, after independent re-solution from submitted theta is not needed because hidden_expected itself is model output; the test checks theta vs hidden_expected as the independent ground truth (prior alone does not satisfy atol=0.5).
+- Checks independent re-solution of max_residual: verifier checks predicted_concentrations vs hidden_expected (the generator's model output) ≤ 1e-3 (and weighted_calibration_misfit to match recomputed whitened residual within 1e-6).
 - Checks limit_exceeded consistency with 50 ug/m3 threshold.
 - Rejects non-finite / wrong-shape / missing-key submissions; checks hidden vs example names disjoint.
 

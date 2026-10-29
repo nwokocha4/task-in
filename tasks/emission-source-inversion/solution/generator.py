@@ -29,7 +29,7 @@ def make_case(rng, seed):
     # true theta (log emissions) per cohort
     theta_true = np.array([rng.uniform(15.0, 17.0) for _ in range(K)])
     # prior
-    prior_mean = theta_true + np.array([rng.uniform(-0.2, 0.2) for _ in range(K)])
+    prior_mean = np.array([rng.uniform(13.0, 15.0) for _ in range(K)])
     prior_sigma = np.array([rng.uniform(0.3, 0.6) for _ in range(K)])
 
     # monitors: subset of receptors
