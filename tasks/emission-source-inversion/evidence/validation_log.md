@@ -17,3 +17,5 @@ Oracle run (reference solution/solve.py):
 - Negative: a prior-mean-only submission passes bounds but fails accuracy (Δθ ≈ 1–2 log units on unlabeled cohorts).
 
 No solver is shipped under environment/data; operator must be reconstructed from docs/sigma_table.csv + dispersion_spec.md.
+
+Behavior grading (heldout_real): checks improvement over prior (≥10%), envelope ±20% around perturbed ground truth, and limit_exceeded correctness — not exact allclose to a single synthetic oracle.

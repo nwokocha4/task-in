@@ -62,3 +62,29 @@ def test_values(case):
  assert bool(diag['limit_exceeded'])==bool(np.max(pc)>50.0)
 def test_disjoint_names():
  ex=set(os.listdir('/app/data/examples')) if os.path.isdir('/app/data/examples') else set(); assert ex.isdisjoint(set(os.listdir(HIDDEN)))
+
+
+@pytest.mark.parametrize("case", sorted(os.listdir("/tests/heldout_real")) if os.path.isdir("/tests/heldout_real") else [])
+def test_behavior_heldout(case):
+    # Only run for behavior json files
+    if not case.endswith("_behavior.json"):
+        pytest.skip("not a behavior case")
+    import json as _js, numpy as _np
+    beh = _js.loads(open(os.path.join("/tests/heldout_real", case)).read())
+    sol_case = case.replace("_behavior.json", "")
+    # Run solver on the corresponding hidden case dir (which shares geometry)
+    proc, recon, diag = run_case(sol_case if sol_case in os.listdir(HIDDEN) else sorted(os.listdir(HIDDEN))[0])
+    assert recon is not None and diag is not None
+    ec = recon["emission_coefficients"]; pc = recon["predicted_concentrations"]
+    import numpy as np
+    # Gate 1: improvement over prior
+    prior = np.array(beh["theta_prior"]); truth = np.array(beh["theta_true"])
+    err_prior = float(np.linalg.norm(prior - truth))
+    err_sol = float(np.linalg.norm(ec - truth))
+    assert err_sol < 0.9 * err_prior, f"no improvement over prior: {err_sol:.3f} vs {err_prior:.3f}"
+    # Gate 2: envelope
+    lo = np.array(beh["predicted_envelope_lo"]); hi = np.array(beh["predicted_envelope_hi"])
+    assert np.all(pc >= lo - 1e-9) and np.all(pc <= hi + 1e-9), "predicted outside physics envelope"
+    # Gate 3: compliance behavior
+    assert bool(diag["limit_exceeded"]) == bool(np.max(pc) > 50.0)
+
