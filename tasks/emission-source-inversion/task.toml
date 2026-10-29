@@ -1,0 +1,29 @@
+artifacts = ["/app/solve.py"]
+
+schema_version = "2.0"
+
+[task]
+name = "insight/emission-source-inversion"
+description = "Recover grouped emission source strengths from sparse downwind monitoring and predict exposure under a withheld meteorology."
+
+[metadata]
+domain = "Science"
+field = "Environmental Science"
+subfield = "Atmospheric Dispersion"
+tags = ["python", "numpy", "scipy", "atmospheric-dispersion"]
+expert_time_estimate_hours = 6
+relevant_experience = "Air-quality modeller / environmental engineer with Gaussian-plume dispersion and inverse-modelling experience."
+
+[verifier]
+timeout_sec = 900.0
+environment_mode = "separate"
+
+[agent]
+timeout_sec = 28800.0
+
+[environment]
+build_timeout_sec = 600.0
+cpus = 2
+memory_mb = 4096
+storage_mb = 10240
+gpus = 0
