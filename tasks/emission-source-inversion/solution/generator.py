@@ -190,15 +190,15 @@ def main():
         rng = random.Random(seed)
         np.random.seed(seed)
         case, _ = make_case(rng, seed)
-        case_dir = os.path.join(base, "tests", "hidden", f"case_{i+1}")
+        case_dir = os.path.join(base, "tests", "hidden", f"case_{i+4}")
         save_case(case, case_dir)
         # hidden expected
         exp_dir = os.path.join(base, "tests", "hidden_expected")
         os.makedirs(exp_dir, exist_ok=True)
-        with open(os.path.join(exp_dir, f"case_{i+1}.json"), "w") as f:
+        with open(os.path.join(exp_dir, f"case_{i+4}.json"), "w") as f:
             json.dump(case["truth"], f, indent=2)
         # also save limit etc
-        with open(os.path.join(exp_dir, f"case_{i+1}_meta.json"), "w") as f:
+        with open(os.path.join(exp_dir, f"case_{i+4}_meta.json"), "w") as f:
             json.dump({"limit": case["limit"], "prior": case["prior"]}, f, indent=2)
 
 
