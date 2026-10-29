@@ -27,7 +27,7 @@ def make_case(rng, seed):
     exit_velocity = np.array([rng.uniform(5, 20) for _ in range(S)])
 
     # true theta (log emissions) per cohort
-    theta_true = np.array([rng.uniform(12.0, 14.0) for _ in range(K)])
+    theta_true = np.array([rng.uniform(15.0, 17.0) for _ in range(K)])
     # prior
     prior_mean = theta_true + np.array([rng.uniform(-0.2, 0.2) for _ in range(K)])
     prior_sigma = np.array([rng.uniform(0.3, 0.6) for _ in range(K)])
@@ -54,7 +54,7 @@ def make_case(rng, seed):
 
     # withheld meteorology: stability class not in calibration, different wind regime
     withheld_stability = rng.choice(["E", "F"])
-    withheld_u = rng.uniform(0.02, 0.05)  # low wind
+    withheld_u = rng.uniform(0.5, 1.5)  # low wind
     withheld_dir = rng.uniform(0, 360)
 
     # background offsets per snapshot (large, near-rank-one)
