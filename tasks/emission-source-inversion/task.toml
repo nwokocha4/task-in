@@ -8,7 +8,7 @@ description = "Recover grouped emission source strengths from sparse downwind mo
 
 [metadata]
 domain = "Science"
-field = "Environmental Science"
+field = "Environmental Sciences"
 subfield = "Atmospheric Dispersion"
 tags = ["python", "numpy", "scipy", "atmospheric-dispersion"]
 expert_time_estimate_hours = 6
